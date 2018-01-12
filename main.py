@@ -19,9 +19,13 @@ def show_anwser(result):
 def main():
     problem, options = problem_util.get_chongding_by_api()
     show_problem(problem, options)
-    web_util.open_browser(web_util.BAIDU_BASE + '?wd=' + problem)
+
+    # url = web_util.BAIDU_BASE + '?wd=%s' % problem
+    # web_util.open_browser(url)
+    
     tags = algo_util.extract_tags(problem)
     context = web_util.request_keywords(tags, 'baidu')
+    
     respones = web_util.segment_html(context)
     result = algo_util.get_answer(options, respones)
     show_anwser(result)
