@@ -12,7 +12,10 @@ def cut_word(sentence):
 
 def extract_tags(sentence):
   result = jieba.analyse.extract_tags(sentence, topK=K, withWeight=True, allowPOS=())
-  return result
+  keywords = []
+  for r in result:
+    keywords.append(r[0])
+  return keywords
 
 def get_weight(option, page_rank, segments):
   count = 0
@@ -49,12 +52,7 @@ def get_answer(options, respones):
   return result
 
 def test():
-  question = '扑克牌中黑桃Q的人物原型是谁？'
-  result = extract_tags(question)
-  keywords = []
-  for r in result:
-    keywords.append(r[0])
-  return keywords
-
+  pass
+  
 if __name__ == '__main__':
   test()
