@@ -54,7 +54,6 @@ def segment_html(html_text):
         dr = re.compile(r'<[^>]+>', re.S)
         node = dr.sub('', node)
         n.append(node)
-        print(node)
     return n
 
 
