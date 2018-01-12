@@ -29,3 +29,6 @@ def request_keywords(keywordlist, engine):
   req = requests.get(url=url, params=params)
   body = req.text
   return body
+
+def segment_html():
+  pass
