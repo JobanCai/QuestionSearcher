@@ -6,9 +6,11 @@ jieba.initialize()
 
 K = 5
 
-
 def cut_word(sentence):
-    result = jieba.cut(sentence)
+    words = jieba.cut(sentence)
+    result = []
+    for w in words:
+        result.append(w)
     return result
 
 
@@ -21,9 +23,9 @@ def extract_tags(sentence):
 
 
 def get_weight(option, page_rank, segments):
-    count = 0
-    for i, seg in segments:
-        for j, s in seg:
+    count = 0.0
+    for i, seg in enumerate(segments):
+        for j, s in enumerate(seg):
             if option in s:
                 count = count + page_rank[i]
     return count
@@ -46,6 +48,7 @@ def get_answer(options, respones):
     for i, opt in enumerate(options):
         w = get_weight(opt, page_rank, segments)
         weights.append(w)
+
 
     result = []
     s = np.sum(weights)
