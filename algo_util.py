@@ -53,13 +53,15 @@ def get_answer(options, respones):
         words = cut_word(res)
         segments.append(words)
 
+    weights = get_weight_list(options, page_rank, segments)
+
     result = []
     s = np.sum(weights)
     for i, w in enumerate(weights):
-        if s > 0
-            result.append((options[i], w / s))
-        else:
-            result.append((options[i], 0.))
+        n_w = 0.0
+        if s > 0.0:
+            n_w = w / s
+        result.append((options[i], n_w))
 
     result.sort(key=lambda x: x[1], reverse=True)
     return result
