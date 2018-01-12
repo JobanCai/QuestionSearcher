@@ -1,5 +1,6 @@
 from lxml import etree
 import codecs
+import re
 import webbrowser
 import requests
 
@@ -49,6 +50,8 @@ def segment_html(html_text):
     for node in nodes:
         node = etree.tostring(node, encoding="UTF-8", xml_declaration=False)
         node = str(node, encoding='utf-8')
+        dr = re.compile(r'<[^>]+>', re.S)
+        node = dr.sub('', node)
         n.append(node)
     return n
 
