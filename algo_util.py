@@ -4,7 +4,7 @@ import numpy as np
 
 jieba.initialize()
 
-K = 5
+K = 6
 
 def cut_word(sentence):
     words = jieba.cut(sentence)
