@@ -47,5 +47,11 @@ def segment_html(html_text):
         "/html/body/div[@id='wrapper']/div[@id='wrapper_wrapper']/div[@id='container']/div[@id='content_left']/div[@id<100]")
     n = []
     for node in nodes:
-        n.append(etree.tostring(node))
+        node = etree.tostring(node, encoding="UTF-8", xml_declaration=False)
+        node = str(node, encoding='utf-8')
+        n.append(node)
     return n
+
+
+if __name__ == '__main__':
+    segment_html("")
