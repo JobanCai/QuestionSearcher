@@ -30,6 +30,15 @@ def get_weight(option, page_rank, segments):
                 count = count + page_rank[i]
     return count
 
+def get_weight_list(options, page_rank, segments):
+    weights = []
+    for i, opt in enumerate(options):
+        w = get_weight(opt, page_rank, segments)
+        weights.append(w)
+    return weights
+
+def get_weight_list_by_n_gram(options, page_rank, segments):
+    pass
 
 def get_answer(options, respones):
     page_rank = []
@@ -44,16 +53,13 @@ def get_answer(options, respones):
         words = cut_word(res)
         segments.append(words)
 
-    weights = []
-    for i, opt in enumerate(options):
-        w = get_weight(opt, page_rank, segments)
-        weights.append(w)
-
-
     result = []
     s = np.sum(weights)
     for i, w in enumerate(weights):
-        result.append((options[i], w / s))
+        if s > 0
+            result.append((options[i], w / s))
+        else:
+            result.append((options[i], 0.))
 
     result.sort(key=lambda x: x[1], reverse=True)
     return result
