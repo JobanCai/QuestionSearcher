@@ -45,14 +45,16 @@ def segment_html(html_text):
     # f.close()
     tree = etree.HTML(html_text)
     nodes = tree.xpath(
-        "/html/body/div[@id='wrapper']/div[@id='wrapper_wrapper']/div[@id='container']/div[@id='content_left']/div[@id<100]")
+        "/html/body/div[@id='wrapper']/div[@id='wrapper_wrapper']/div[@id='container']/div[@id='content_left']/div[@id<100]/div[@class='c-abstract']")
     n = []
     for node in nodes:
+        # node = node.xpath("//div[@class='c-abstract']")
         node = etree.tostring(node, encoding="UTF-8", xml_declaration=False)
         node = str(node, encoding='utf-8')
         dr = re.compile(r'<[^>]+>', re.S)
         node = dr.sub('', node)
         n.append(node)
+        print(node)
     return n
 
 

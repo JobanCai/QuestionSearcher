@@ -19,7 +19,7 @@ def get_chongding_by_api():
     event = json.loads(req.text)['data']['event']
     question = event['desc'];
     answerStr = event['options']
-    answerStr = answerStr.replace("\\\"", "")
+    answerStr = answerStr.replace("\"", "")
     answerStr = answerStr.replace("[", "")
     answerStr = answerStr.replace("]", "")
     answer = answerStr.split(",")
