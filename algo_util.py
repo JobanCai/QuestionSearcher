@@ -22,12 +22,13 @@ def extract_tags(sentence):
     return keywords
 
 
-def get_weight(option, page_rank, segments):
+def get_weight(option, page_rank, segments, weight):
     count = 0.0
     for i, seg in enumerate(segments):
         for j, s in enumerate(seg):
             if option in s:
-                count = count + page_rank[i]
+                # print('Find:%s %s %f' % (option, s, page_rank[i]))
+                count = count + page_rank[i] * weight
     return count
 
 def get_weight_list(options, page_rank, segments):
@@ -38,7 +39,17 @@ def get_weight_list(options, page_rank, segments):
     return weights
 
 def get_weight_list_by_n_gram(options, page_rank, segments):
-    pass
+    weights = []
+    for i, opt in enumerate(options):
+        f_w = 0.0
+        for j in range(2, len(opt) + 1):
+            for k in range(len(opt) - j + 1):
+                weight = j * 1.0 / len(opt)
+                w = get_weight(opt[k:k + j], page_rank, segments, weight)
+                f_w = f_w + w
+        weights.append(f_w)
+    return weights
+    
 
 def get_answer(options, respones):
     page_rank = []
@@ -53,7 +64,7 @@ def get_answer(options, respones):
         words = cut_word(res)
         segments.append(words)
 
-    weights = get_weight_list(options, page_rank, segments)
+    weights = get_weight_list_by_n_gram(options, page_rank, segments)
 
     result = []
     s = np.sum(weights)

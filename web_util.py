@@ -39,22 +39,38 @@ def request_keywords(keywordlist, engine):
     return body
 
 
-def segment_html(html_text):
+def segment_html(html_text, engine):
     # f = codecs.open("./test_data/index.html", "r", "utf-8")
     # html_text = f.read()
     # f.close()
-    tree = etree.HTML(html_text)
-    nodes = tree.xpath(
-        "/html/body/div[@id='wrapper']/div[@id='wrapper_wrapper']/div[@id='container']/div[@id='content_left']/div[@id<100]/div[@class='c-abstract']")
-    n = []
-    for node in nodes:
-        # node = node.xpath("//div[@class='c-abstract']")
+    def get_string_from_node(node):
         node = etree.tostring(node, encoding="UTF-8", xml_declaration=False)
         node = str(node, encoding='utf-8')
         dr = re.compile(r'<[^>]+>', re.S)
         node = dr.sub('', node)
-        n.append(node)
-        print(node)
+        return node
+
+    n = []
+    tree = etree.HTML(html_text)
+    if engine == 'baidu':
+        nodes = tree.xpath(
+            "/html/body/div[@id='wrapper']/div[@id='wrapper_wrapper']/div[@id='container']/div[@id='content_left']/div[@id<100]/div[@class='c-abstract']")
+        for node in nodes:
+            # node = node.xpath("//div[@class='c-abstract']")
+            node = get_string_from_node(node)
+            n.append(node)
+    else:
+        path = "/html/body/div[@id='b_content']/ol[@id='b_results']/li"
+        nodes = tree.xpath(path)
+        for node in nodes:
+            headers = node.xpath("./h2/a")
+            contents = node.xpath("./div[@class='b_caption']/p")
+            line = ""
+            for h in headers:
+                line = line + get_string_from_node(h)
+            for c in contents:
+                line = line + get_string_from_node(c)
+            n.append(line)
     return n
 
 
