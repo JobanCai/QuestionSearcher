@@ -40,10 +40,12 @@ def request_keywords(keywordlist, engine):
 
 def segment_html(html_text):
     # f = codecs.open("./test_data/index.html", "r", "utf-8")
-    # content = f.read()
+    # html_text = f.read()
     # f.close()
-    # print(content)
     tree = etree.HTML(html_text)
     nodes = tree.xpath(
         "/html/body/div[@id='wrapper']/div[@id='wrapper_wrapper']/div[@id='container']/div[@id='content_left']/div[@id<100]")
-    return nodes
+    n = []
+    for node in nodes:
+        n.append(etree.tostring(node))
+    return n
