@@ -30,5 +30,3 @@ def request_keywords(keywordlist, engine):
   body = req.text
   return body
 
-def segment_html():
-  pass
