@@ -53,12 +53,17 @@ def segment_html(html_text, engine):
     n = []
     tree = etree.HTML(html_text)
     if engine == 'baidu':
-        nodes = tree.xpath(
-            "/html/body/div[@id='wrapper']/div[@id='wrapper_wrapper']/div[@id='container']/div[@id='content_left']/div[@id<100]/div[@class='c-abstract']")
+        path = "/html/body/div[@id='wrapper']/div[@id='wrapper_wrapper']/div[@id='container']/div[@id='content_left']/div[@id<100]"
+        nodes = tree.xpath(path)
         for node in nodes:
-            # node = node.xpath("//div[@class='c-abstract']")
-            node = get_string_from_node(node)
-            n.append(node)
+            headers = node.xpath("./h3/a")
+            contents = node.xpath("./div[@class='c-abstract']")
+            line = ""
+            for h in headers:
+                line = line + get_string_from_node(h)
+            for c in contents:
+                line = line + get_string_from_node(c)
+            n.append(line)
     else:
         path = "/html/body/div[@id='b_content']/ol[@id='b_results']/li"
         nodes = tree.xpath(path)

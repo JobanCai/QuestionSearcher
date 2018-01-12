@@ -12,7 +12,7 @@ def show_problem(problem, options):
 
 def show_anwser(result, engine):
     print('Search Engine:%s\tRecommend:%s' % (engine, result[0][0]))
-    print('Answer\t--\tWeight')
+    print('Answer\t--\tScore')
     for i, r in enumerate(result):
         print('%s\t--\t%.6f' % (r[0], r[1]))
 
@@ -35,7 +35,6 @@ def main():
 
     for e in engines:
         context = web_util.request_keywords(tags, e)
-        
         respones = web_util.segment_html(context, e)
         result = algo_util.get_answer(options, respones)
         show_anwser(result, e)
