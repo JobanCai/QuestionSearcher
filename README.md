@@ -6,4 +6,4 @@
 
 python3, jieba, numpy
 
-pip install numpy, scipy, jieba, lxml
+pip install numpy, scipy, jieba, lxml, logging
