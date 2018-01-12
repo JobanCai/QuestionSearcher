@@ -1,5 +1,4 @@
 from lxml import etree
-import codecs
 import re
 import webbrowser
 import requests
@@ -40,9 +39,6 @@ def request_keywords(keywordlist, engine):
 
 
 def segment_html(html_text, engine):
-    # f = codecs.open("./test_data/index.html", "r", "utf-8")
-    # html_text = f.read()
-    # f.close()
     def get_string_from_node(node):
         node = etree.tostring(node, encoding="UTF-8", xml_declaration=False)
         node = str(node, encoding='utf-8')
@@ -56,7 +52,6 @@ def segment_html(html_text, engine):
         nodes = tree.xpath(
             "/html/body/div[@id='wrapper']/div[@id='wrapper_wrapper']/div[@id='container']/div[@id='content_left']/div[@id<100]/div[@class='c-abstract']")
         for node in nodes:
-            # node = node.xpath("//div[@class='c-abstract']")
             node = get_string_from_node(node)
             n.append(node)
     else:
