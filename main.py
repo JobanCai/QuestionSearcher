@@ -24,8 +24,8 @@ def main():
     last = time.time()
     show_problem(problem, options)
 
-    url = web_util.BAIDU_BASE + '?wd=%s' % problem
-    web_util.open_browser(url)
+    # url = web_util.BAIDU_BASE + '?wd=%s' % problem
+    # web_util.open_browser(url)
     
     tags = algo_util.extract_tags(problem)
     keys = ''
